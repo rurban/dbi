@@ -3494,6 +3494,8 @@ XS(XS_DBI_dispatch)
                     imp_xxh_t *imp_xxh = dbih_getcom2(aTHX_ *hp, 0);
                     if (imp_xxh && DBIc_COMSET(imp_xxh)) {
                         dbih_clearcom(imp_xxh);
+                        if (SvIS_FREED(av))
+                            break;
                         sv_setsv(*hp, &PL_sv_undef);
                     }
                 }
