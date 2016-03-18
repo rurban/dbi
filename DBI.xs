@@ -30,6 +30,10 @@ static int use_xsbypass = 1; /* set in dbi_bootinit() */
 #ifndef CvISXSUB
 #define CvISXSUB(sv) CvXSUB(sv)
 #endif
+/* added with 5.8.9 */
+#ifndef SvIS_FREED
+#define SvIS_FREED(sv)  (SvFLAGS(sv) == SVTYPEMASK)
+#endif
 
 #define DBI_MAGIC '~'
 
@@ -3432,9 +3436,10 @@ XS(XS_DBI_dispatch)
             I32 kidslots;
             PerlIO *logfp = DBILOGFP;
 
-            for (kidslots = AvFILL(av); kidslots >= 0; --kidslots) {
+            if (!SvIS_FREED(av)) {
+              for (kidslots = AvFILL(av); kidslots >= 0; --kidslots) {
                 SV **hp = av_fetch(av, kidslots, FALSE);
-                if (!hp || !SvROK(*hp) || SvTYPE(SvRV(*hp))!=SVt_PVHV)
+                if (SvIS_FREED(av) || !hp || !SvROK(*hp) || SvTYPE(SvRV(*hp))!=SVt_PVHV)
                     break;
 
                 if (trace_level >= 1) {
@@ -3454,9 +3459,12 @@ XS(XS_DBI_dispatch)
                     imp_xxh_t *imp_xxh = dbih_getcom2(aTHX_ *hp, 0);
                     if (imp_xxh && DBIc_COMSET(imp_xxh)) {
                         dbih_clearcom(imp_xxh);
+                        if (SvIS_FREED(av))
+                            break;
                         sv_setsv(*hp, &PL_sv_undef);
                     }
                 }
+              }
             }
         }
 
