@@ -97,7 +97,7 @@ else {
     # local $ENV{PERLDB_OPTS} = "AutoTrace NonStop=1 LineInfo=dbiproxy.dbg";
 
     # pass our @INC to children (e.g., so -Mblib passes through)
-    $ENV{PERL5LIB} = join($Config{path_sep}, @INC);
+    $ENV{PERL5LIB} = join($Config{path_sep}, @INC, ".");
 
     # server DBI trace level always at least 1
     my $dbitracelevel = DBI->trace(0) || 1;

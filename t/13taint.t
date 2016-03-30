@@ -1,6 +1,6 @@
 #!perl -wT
 
-use lib qw(blib/arch blib/lib);	# needed since -T ignores PERL5LIB
+use lib qw(blib/arch blib/lib .);	# needed since -T ignores PERL5LIB
 use DBI qw(:sql_types);
 use Config;
 use Cwd;

@@ -1,6 +1,6 @@
 #!perl -w
 
-use lib qw(blib/arch blib/lib);	# needed since -T ignores PERL5LIB
+use lib qw(blib/arch blib/lib .);	# needed since -T ignores PERL5LIB
 use strict;
 
 use Test::More tests => 10;

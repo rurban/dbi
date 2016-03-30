@@ -65,6 +65,7 @@ sub start_pipe_command {
     local $ENV{DBI_TRACE}; # use DBI_GOFER_TRACE instead
     local $ENV{DBI_AUTOPROXY};
     local $ENV{DBI_PROFILE};
+    local $ENV{PERL_USE_UNSAFE_INC} = 1; # but keep this insecurity
 
     my ($wfh, $rfh, $efh) = (gensym, gensym, gensym);
     my $pid = open3($wfh, $rfh, $efh, @$cmd)

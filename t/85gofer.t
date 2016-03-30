@@ -20,7 +20,7 @@ if (my $ap = $ENV{DBI_AUTOPROXY}) { # limit the insanity
         if $ap !~ /policy=pedantic\b/i;
 }
 
-do "t/lib.pl";
+do "./t/lib.pl";
 
 # 0=SQL::Statement if avail, 1=DBI::SQL::Nano
 # next line forces use of Nano rather than default behaviour
@@ -66,7 +66,7 @@ if ($ENV{DBI_AUTOPROXY}) {
 }
 
 # ensure subprocess (for pipeone and stream transport) will use the same modules as us, ie ./blib
-local $ENV{PERL5LIB} = join $Config{path_sep}, @INC;
+local $ENV{PERL5LIB} = join $Config{path_sep}, @INC, ".";
 
 my %durations;
 my $getcwd = getcwd();
@@ -74,7 +74,7 @@ my $username = eval { getpwuid($>) } || ''; # fails on windows
 my $can_ssh = ($username && $username eq 'timbo' && -d '.svn'
             && system("sh -c 'echo > /dev/tcp/localhost/22' 2>/dev/null")==0
 );
-my $perl = "$^X  -Mblib=$getcwd/blib"; # ensure sameperl and our blib (note two spaces)
+my $perl = "$^X -Mblib=$getcwd/blib"; # ensure sameperl and our blib (note two spaces)
 
 my %trials = (
     null       => {},

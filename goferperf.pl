@@ -27,7 +27,7 @@ if ($ENV{DBI_AUTOPROXY}) {
 }
 
 # ensure subprocess (for pipeone and stream transport) will use the same modules as us, ie ./blib
-local $ENV{PERL5LIB} = join ":", @INC;
+local $ENV{PERL5LIB} = join ":", @INC, ".";
 
 my %durations;
 my $username = eval { getpwuid($>) } || ''; # fails on windows
