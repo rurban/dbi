@@ -8126,10 +8126,17 @@ Oracle 7 SQL and PL/SQL) is available here:
 
   http://cui.unige.ch/db-research/Enseignement/analyseinfo/SQL92/BNFindex.html
 
-A BNF syntax for SQL3 is available here:
+You can find more information about SQL standards online by searching for the
+appropriate standard names and numbers. For example, searching for
+"ANSI/ISO/IEC International Standard (IS) Database Language SQL — Part 1:
+SQL/Framework" you'll find a copy at:
 
   http://www.sqlstandards.org/SC32/WG3/Progression_Documents/Informal_working_drafts/iso-9075-2-1999.bnf
 
+The following links provide further useful information about SQL.
+Some of these are rather dated now but may still be useful.
+
+  ftp://ftp.iks-jena.de/mitarb/lutz/standards/sql/ansi-iso-9075-1-1999.pdf
 
 =head2 Books and Articles
 
