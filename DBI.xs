@@ -3460,7 +3460,7 @@ XS(XS_DBI_dispatch)
                     PUSHMARK(SP);
                     XPUSHs(*hp);
                     PUTBACK;
-                    call_method("DESTROY", G_DISCARD|G_EVAL|G_KEEPERR);
+                    call_method("DESTROY", G_VOID|G_EVAL|G_KEEPERR);
                     MSPAGAIN;
                 }
                 else {
@@ -3905,7 +3905,7 @@ XS(XS_DBI_dispatch)
                 XPUSHs(sv_2mortal(newSVpv("AutoCommit",0)));
                 XPUSHs(&PL_sv_yes);
                 PUTBACK;
-                call_method("STORE", G_DISCARD);
+                call_method("STORE", G_VOID);
                 MSPAGAIN;
             }
         }
@@ -5111,7 +5111,7 @@ take_imp_data(h)
                 PUSHMARK(sp);
                 XPUSHs(*hp);
                 PUTBACK;
-                call_method("finish", G_SCALAR|G_DISCARD);
+                call_method("finish", G_VOID);
                 SPAGAIN;
                 PUTBACK;
                 sv_unmagic(SvRV(*hp), 'P'); /* untie */
