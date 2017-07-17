@@ -201,10 +201,11 @@ sub connect ($$;$$$)
         #   90 => [ all fields that are needed after other initialisation ],
         #   }
 
-        my %order = map {
+        my @order = map {
             my $order = $_;
             map { ( $_ => $order ) } @{ $dbh->{sql_init_order}{$order} };
         } sort { $a <=> $b } keys %{ $dbh->{sql_init_order} || {} };
+        my %order = @order; # defeat cperl strict hashpairs
         my @ordered_attr =
           map  { $_->[0] }
           sort { $a->[1] <=> $b->[1] }
